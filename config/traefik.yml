@@ -1,0 +1,30 @@
+# Providers config
+providers:
+  docker: {} # Docker との連携を有効
+
+# API/Dashboard config
+api:
+  insecure: true # WebUI にアクセスできるように設定
+
+log:
+  filePath: "/opt/log/traefik.log"
+  level: DEBUG
+  format: json
+
+entryPoints:
+  web:
+    address: ":80"
+  secure:
+    address: ":443"
+
+
+certificatesResolvers:
+  default:
+    acme:
+      email: hoge@exapmle.com
+      storage: acme.json
+      tlsChallenge: {}
+      # caserver: 'https://acme-staging-v02.api.letsencrypt.org/directory'
+      caServer: https://acme-v02.api.letsencrypt.org/directory
+      httpChallenge:
+        entryPoint: web
